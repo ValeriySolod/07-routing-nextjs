@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
-import QueryProvider from '@/components/QueryProvider/QueryProvider';
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 
 export const metadata: Metadata = {
   title: 'NoteHub',
@@ -18,12 +18,12 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
-        <QueryProvider>
+        <TanStackProvider>
           <Header />
           {children}
           {modal}
           <Footer />
-        </QueryProvider>
+        </TanStackProvider>
       </body>
     </html>
   );
