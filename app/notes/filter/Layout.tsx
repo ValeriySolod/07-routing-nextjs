@@ -5,7 +5,10 @@ interface NotesFilterLayoutProps {
   sidebar: React.ReactNode;
 }
 
-export default function NotesFilterLayout({ children, sidebar }: NotesFilterLayoutProps) {
+export default function NotesFilterLayout({
+  children,
+  sidebar,
+}: NotesFilterLayoutProps) {
   return (
     <section className={css.container}>
       <aside className={css.sidebar}>{sidebar}</aside>
