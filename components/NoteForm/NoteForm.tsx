@@ -2,13 +2,17 @@
 
 import { FormEvent, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createNote } from '@/lib/api/notes';
+import { createNote } from '@/lib/api';
 import type { NoteTag } from '@/types/note';
 import css from './NoteForm.module.css';
 
 const tags: NoteTag[] = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'];
 
-export default function NoteForm() {
+interface NoteFormProps {
+  onClose: () => void;
+}
+
+export default function NoteForm({ onClose }: NoteFormProps) {
   const queryClient = useQueryClient();
 
   const [title, setTitle] = useState('');
@@ -19,9 +23,7 @@ export default function NoteForm() {
     mutationFn: createNote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
-      setTitle('');
-      setContent('');
-      setTag('Todo');
+      onClose();
     },
   });
 
@@ -68,9 +70,15 @@ export default function NoteForm() {
         ))}
       </select>
 
-      <button type="submit" className={css.button} disabled={isPending}>
-        {isPending ? 'Creating...' : 'Create note'}
-      </button>
+      <div className={css.actions}>
+        <button type="button" className={css.cancelButton} onClick={onClose}>
+          Cancel
+        </button>
+
+        <button type="submit" className={css.submitButton} disabled={isPending}>
+          {isPending ? 'Creating...' : 'Create note'}
+        </button>
+      </div>
     </form>
   );
 }
