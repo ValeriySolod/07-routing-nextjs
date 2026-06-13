@@ -7,7 +7,7 @@ const allowedTags: NoteTag[] = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping
 
 interface NotesPageProps {
   params: Promise<{
-    slug?: string[];
+    slug: string[];
   }>;
 }
 
